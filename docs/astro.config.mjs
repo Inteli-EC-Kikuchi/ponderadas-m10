@@ -3,11 +3,13 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: process.env.CI ? 'https://inteli-ec-kikuchi.github.io' : 'http://localhost:4321',
+	base: '/ponderadas-m10/',
 	integrations: [
 		starlight({
 			title: 'Documentação Kikuchi',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/Inteli-EC-Kikuchi/ponderadas-m10',
 			},
 			sidebar: [
 				{
