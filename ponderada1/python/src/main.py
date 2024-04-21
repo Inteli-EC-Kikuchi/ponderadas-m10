@@ -22,8 +22,16 @@ def get_db():
 
 
 @app.get("/")
-def root():
+def render_root():
     return FileResponse("templates/index.html")
+
+@app.get("/register")
+def render_register():
+    return FileResponse("templates/register.html")
+
+@app.get("/login-page")
+def render_login():
+    return FileResponse("templates/login.html")
 
 @app.get("/tasks")
 def tasks(db: Session = Depends(get_db)):
@@ -64,3 +72,44 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": f"Task {task_id} deleted successfully"}
+
+@app.get("/users")
+def users(db: Session = Depends(get_db)):
+    
+    db_users = db.query(models.User).all()
+
+    users = [{"id": user.id, "username": user.username} for user in db_users]
+    
+    return {"users": users}
+
+@app.post("/users")
+def create_user(db: Session = Depends(get_db)):
+
+    user = models.User(username="User 1", email="a@b.com", password="1234")
+
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    return {"message": "User created successfully", "user": user}
+
+@app.put("/users/{user_id}")
+def update_user(user_id: int, db: Session = Depends(get_db)):
+
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+
+    user.username = f"User {user_id} updated"
+    db.commit()
+    db.refresh(user)
+
+    return {"message": f"User {user_id} updated successfully"}
+
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+
+    db.delete(user)
+    db.commit()
+
+    return {"message": f"User {user_id} deleted successfully"}
