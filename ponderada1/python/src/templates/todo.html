@@ -7,5 +7,58 @@
 </head>
 <body>
     <h1>Welcome to your To Do List</h1>
+
+    <form id="task-form" action="http://localhost:8000/tasks" method="post">
+        <label for="name">Task</label>
+        <input type="text" name="name" id="name" required>
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <script>
+        document.getElementById("task-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const token = document.cookie
+                .split("; ")
+                .find(row => row.startsWith("token="))
+                .split("=")[1];
+            
+            const name = document.getElementById("name").value;
+            const description = document.getElementById("description").value;
+
+            const url = "http://localhost:8000/tasks";
+            const data = {
+                name: name,
+                description: description
+                
+            };
+
+            const headers = {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert("Task created successfully");
+                } else {
+                    alert("Failed to create task");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            }
+        });
+    
+    </script>
+
 </body>
 </html>
