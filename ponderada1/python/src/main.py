@@ -1,4 +1,8 @@
-from fastapi import FastAPI, Depends, Form
+from datetime import datetime, timedelta
+import jwt
+import requests
+
+from fastapi import FastAPI, Depends, Form, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -12,6 +16,10 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="templates"), name="static")
+
+
+SECRET_KEY = "b0e0e5b4a8f1c1e2b8d5c3a8b3b9d7e2"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 def get_db():
     db = SessionLocal()
@@ -114,6 +122,11 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
     return {"message": f"User {user_id} deleted successfully"}
 
+
+
+
+
+
 @app.post("/login")
 def login(username: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
 
@@ -121,6 +134,38 @@ def login(username: str = Form(), password: str = Form(), db: Session = Depends(
 
     if user is None or user.password != password:
         return FileResponse("templates/error.html")
+    
+    token_data = requests.post("http://localhost:8000/token", data={"username": username, "password": password}).json()
 
-    return FileResponse("templates/todo.html")
+    if token_data.status_code != 200:
+        return FileResponse("templates/error.html")
+    
+    response = FileResponse("templates/todo.html")
+    response.set_cookie(key="access token", value=token_data["access_token"])
 
+    return response
+
+@app.post("/token")
+async def create_token(request: Request, db: Session = Depends(get_db)):
+
+    data = await request.json()
+
+    user = db.query(models.User).filter(models.User.username == data["username"]).first()
+
+    if user is None or user.password != data["password"]:
+        return {"message": "Incorrect username or password"}
+
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(identity={"sub": user.username}, secret_key=SECRET_KEY, expires_delta=access_token_expires)
+
+    return {"access_token": access_token, "token_type": "bearer", "username": user.username}
+
+def create_access_token(identity: str, secret_key: str, expires_delta: timedelta):
+    expire = datetime.utcnow() + expires_delta
+    to_encode = {"exp": expire, "sub": identity}
+    encoded_jwt = jwt.encode(to_encode, secret_key, algorithm="HS256")
+    return encoded_jwt
+
+# @app.get("/protected")
+# def protected_route(credentials: HTTPAuthorizationCredentials = Depends(security)):
+#     return {"message": "This is a protected route"}
