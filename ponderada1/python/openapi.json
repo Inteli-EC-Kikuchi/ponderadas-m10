@@ -1,0 +1,478 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "FastAPI",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Render Root",
+          "operationId": "render_root__get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/register": {
+        "get": {
+          "summary": "Render Register",
+          "operationId": "render_register_register_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/login-page": {
+        "get": {
+          "summary": "Render Login",
+          "operationId": "render_login_login_page_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/todo": {
+        "get": {
+          "summary": "Render Todo",
+          "operationId": "render_todo_todo_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks": {
+        "get": {
+          "summary": "Tasks",
+          "operationId": "tasks_tasks_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create Task",
+          "operationId": "create_task_tasks_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCreate"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{task_id}": {
+        "put": {
+          "summary": "Update Task",
+          "operationId": "update_task_tasks__task_id__put",
+          "parameters": [
+            {
+              "name": "task_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Task Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Task",
+          "operationId": "delete_task_tasks__task_id__delete",
+          "parameters": [
+            {
+              "name": "task_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Task Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users": {
+        "get": {
+          "summary": "Users",
+          "operationId": "users_users_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create User",
+          "operationId": "create_user_users_post",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_create_user_users_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{user_id}": {
+        "put": {
+          "summary": "Update User",
+          "operationId": "update_user_users__user_id__put",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete User",
+          "operationId": "delete_user_users__user_id__delete",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "Login",
+          "operationId": "login_login_post",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_login_login_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/token": {
+        "post": {
+          "summary": "Create Token",
+          "operationId": "create_token_token_post",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Body_create_user_users_post": {
+          "properties": {
+            "username": {
+              "type": "string",
+              "title": "Username"
+            },
+            "password": {
+              "type": "string",
+              "title": "Password"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email"
+            }
+          },
+          "type": "object",
+          "required": [
+            "username",
+            "password",
+            "email"
+          ],
+          "title": "Body_create_user_users_post"
+        },
+        "Body_login_login_post": {
+          "properties": {
+            "username": {
+              "type": "string",
+              "title": "Username"
+            },
+            "password": {
+              "type": "string",
+              "title": "Password"
+            }
+          },
+          "type": "object",
+          "required": [
+            "username",
+            "password"
+          ],
+          "title": "Body_login_login_post"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "TaskCreate": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "description"
+          ],
+          "title": "TaskCreate"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }
