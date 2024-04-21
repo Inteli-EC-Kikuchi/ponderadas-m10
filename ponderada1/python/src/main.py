@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Form
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -83,9 +83,9 @@ def users(db: Session = Depends(get_db)):
     return {"users": users}
 
 @app.post("/users")
-def create_user(db: Session = Depends(get_db)):
+def create_user(db: Session = Depends(get_db), username: str = Form(), password: str = Form(), email: str = Form()):
 
-    user = models.User(username="User 1", email="a@b.com", password="1234")
+    user = models.User(username=username, email=email, password=password)
 
     db.add(user)
     db.commit()
@@ -113,3 +113,14 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": f"User {user_id} deleted successfully"}
+
+@app.post("/login")
+def login(username: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
+
+    user = db.query(models.User).filter(models.User.username == username).first()
+
+    if user is None or user.password != password:
+        return FileResponse("templates/error.html")
+
+    return FileResponse("templates/todo.html")
+
