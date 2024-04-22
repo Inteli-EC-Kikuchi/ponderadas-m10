@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>Welcome to your To Do List</h1>
+
+    <div>
+        <h2>Your Tasks</h2>
+        <ul>
+            {{range .Items}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+    </div>
+
+    <form id="task-form" action="http://localhost:8000/tasks" method="post">
+        <label for="name">Task</label>
+        <input type="text" name="name" id="name" required>
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" required>
+        <button type="submit">Add</button>
+    </form>
+
+</body>
+</html>
