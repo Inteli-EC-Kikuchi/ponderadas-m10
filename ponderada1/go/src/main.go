@@ -1,29 +1,22 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"os"
 
-	routes "github.com/Inteli-EC-Kikuchi/ponderadas-m10/src/routes"
 	mw "github.com/Inteli-EC-Kikuchi/ponderadas-m10/src/middleware"
+	"github.com/Inteli-EC-Kikuchi/ponderadas-m10/src/routes"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth/v5"
 
-	"github.com/joho/godotenv"
 )
 
 var tokenAuth *jwtauth.JWTAuth
 
 func init(){
-
-	err := godotenv.Load("../.env")
-
-	if err != nil {
-		panic("Could not load .env")
-	}
 
 	secret_key := os.Getenv("SECRET_KEY")
 
@@ -34,6 +27,8 @@ func init(){
 }
 
 func main(){
+
+	defer routes.DbInstance.Conn.Close()
 
 	r := chi.NewRouter()
 
@@ -65,8 +60,8 @@ func main(){
 
 	r.Route("/tasks", func(r chi.Router) {
 		
-		r.Use(jwtauth.Verifier(tokenAuth))
-		r.Use(jwtauth.Authenticator(tokenAuth))
+		// r.Use(jwtauth.Verifier(tokenAuth))
+		// r.Use(jwtauth.Authenticator(tokenAuth))
 		
 		r.Get("/", routes.RenderTasks)
 		r.Post("/", routes.CreateTask)
@@ -74,5 +69,7 @@ func main(){
 		r.Delete("/", routes.DeleteTask)
 	})
 
-	http.ListenAndServe(":3333", r)
+	
+
+	fmt.Println(http.ListenAndServe(":3333", r))
 }

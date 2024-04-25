@@ -31,17 +31,15 @@ func (db Database) GetAllToDos() (*models.ToDoList, error) {
 
 func (db Database) AddToDo(todo *models.ToDo) error {
 	var id int
-	var userId int
 
-	query := `INSERT INTO todos (name, description) VALUES ($1, $2) RETURNING id, user_id`
-	err := db.Conn.QueryRow(query, todo.Name, todo.Description).Scan(&id, &userId)
+	query := `INSERT INTO todos (name, description) VALUES ($1, $2) RETURNING id`
+	err := db.Conn.QueryRow(query, todo.Name, todo.Description).Scan(&id)
 
 	if err != nil {
 		return err
 	}
 
 	todo.ID = id
-	todo.UserID = userId
 
 	return nil
 }

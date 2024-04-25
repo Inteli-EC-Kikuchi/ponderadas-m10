@@ -14,9 +14,9 @@ type UserList struct{
 	Users []User `json:"todos"`
 }
 
-func (td *User) Bind(r *http.Request) error {
+func (u *User) Bind(r *http.Request) error {
 	
-	if td.Name == ""{
+	if u.Name == ""{
 		return fmt.Errorf("name is a required field")
 	}
 
