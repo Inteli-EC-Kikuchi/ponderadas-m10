@@ -14,9 +14,7 @@ services:
       - my-network
 
   server:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hallzero/go-server
     env_file: .env
     ports:
       - "3333:3333"
