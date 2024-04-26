@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -9,8 +10,17 @@ import (
 )
 
 func RenderTasks(w http.ResponseWriter, r *http.Request){
+
+	todos, err := DbInstance.GetAllToDos()
+	
+	if err != nil {
+		fmt.Println(err)
+        return
+	}
+	
 	w.WriteHeader(200)
-	w.Write([]byte("Tasks"))
+
+	json.NewEncoder(w).Encode(todos)
 }
 
 func CreateTask(w http.ResponseWriter, r *http.Request){

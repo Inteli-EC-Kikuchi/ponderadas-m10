@@ -11,9 +11,13 @@
     <div>
         <h2>Your Tasks</h2>
         <ul>
-            {{range .Items}}
-                <li>{{.}}</li>
+            <div>
+            {{range .ToDos}}
+                <li>{{.Name}} - {{.Description}}</li>
+                <button id={{.UserID}}>Update</button>
+                <button id={{.UserID}}>Delete</button>
             {{end}}
+            </div>
         </ul>
     </div>
 

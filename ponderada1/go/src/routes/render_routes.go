@@ -1,13 +1,14 @@
 package routes
 
-import(
-	"net/http"
+import (
+	"encoding/json"
+	"fmt"
 	"html/template"
-)
+	"io"
+	"net/http"
 
-type ToDo struct {
-	Items []string
-}
+	"github.com/Inteli-EC-Kikuchi/ponderadas-m10/src/models"
+)
 
 func RenderRoot(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/index.html")
@@ -41,15 +42,24 @@ func RenderRegister(w http.ResponseWriter, r *http.Request) {
 
 
 func RenderToDo(w http.ResponseWriter, r *http.Request){
+	
+	todos := &models.ToDoList{}
+	
 	t, err := template.ParseFiles("./templates/todo.html")
 
 	if err != nil {
 		panic(err)
 	}
 
-	data := ToDo{
-		Items: []string{"Item 1", "Item 2", "Item 3"},
-	}
+	requestURL := "http://localhost:3333/tasks"
 
-	t.Execute(w, data)
+	res, _ := http.Get(requestURL)
+
+	bodyBytes, _ := io.ReadAll(res.Body)
+
+	_ = json.Unmarshal(bodyBytes, &todos)
+
+	fmt.Println(todos.ToDos)
+
+	t.Execute(w, todos)
 }
