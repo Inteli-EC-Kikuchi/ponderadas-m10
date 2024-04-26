@@ -4,3 +4,52 @@ description: Implementação de uma API - Desenvolver uma API simples, como um s
 ---
 
 # Ponderada 1
+
+Implementação de uma API para ToDo List utilizando Go com o framework chi de forma síncrona. O projeto utiliza requisições HTTP com autenticação básica e verificação JWT para verificar operações relacionadas ao usuário.
+
+## Features
+- Operações de CRUD (Create, Read, Update and Delete) para as tarefas.
+- Registro de usuários
+- Autorização para verificação de JWT
+- Containerização da aplicação com Docker
+
+## Arquitetura
+
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside>Utilizarei aqui a solução em Go como a principal.</Aside>
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+-   docker-compose.yaml
+-   Dockerfile
+-   go.mod
+-   go.sum
+-   README.md
+-   src
+    -   main.go
+    -   database
+        -   database.go
+        -   todo.go
+        -   user.go
+    -   middleware
+        -   auth_middleware.go
+    -   models
+        -   todo.go
+        -   user.go
+    -   routes
+        -   database_handler.go
+        -   render_routes.go
+        -   tasks_routes.go
+        -   users_routes.go
+    -  template
+       -  index.html
+       -  login.html
+       -  register.html
+       -  teste.html
+       -  todo.html
+
+</FileTree>
