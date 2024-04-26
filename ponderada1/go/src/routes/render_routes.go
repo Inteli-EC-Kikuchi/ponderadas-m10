@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -58,8 +57,6 @@ func RenderToDo(w http.ResponseWriter, r *http.Request){
 	bodyBytes, _ := io.ReadAll(res.Body)
 
 	_ = json.Unmarshal(bodyBytes, &todos)
-
-	fmt.Println(todos.ToDos)
 
 	t.Execute(w, todos)
 }
