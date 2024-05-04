@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'todo.dart';
+import 'login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: const RootPage(),
-      routes: {"/test": (BuildContext context) => const Test()},
+      home: const Login(),
+      routes: {"/todo": (BuildContext context) => const RootPage()},
     );
   }
 }
@@ -39,7 +40,7 @@ class _RootPageState extends State<RootPage> {
       appBar: AppBar(
         title: const Text("Welcome to your Todo List, {%user%}"),
       ),
-      body: Row(
+      body: const Row(
         children: [
           Expanded(child: Todo()),
           Expanded(child: Todo()),
@@ -48,7 +49,7 @@ class _RootPageState extends State<RootPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.purple,
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
