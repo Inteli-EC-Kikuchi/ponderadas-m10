@@ -32,8 +32,8 @@ func (db Database) GetAllToDos() (*models.ToDoList, error) {
 func (db Database) AddToDo(todo *models.ToDo) error {
 	var id int
 
-	query := `INSERT INTO todos (name, description) VALUES ($1, $2) RETURNING id`
-	err := db.Conn.QueryRow(query, todo.Name, todo.Description).Scan(&id)
+	query := `INSERT INTO todos (name, description, user_id) VALUES ($1, $2, $3) RETURNING id`
+	err := db.Conn.QueryRow(query, todo.Name, todo.Description, todo.UserID).Scan(&id)
 
 	if err != nil {
 		return err
