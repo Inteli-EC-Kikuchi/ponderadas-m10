@@ -18,17 +18,17 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Add New Task'),
+      title: const Text('Add New Task'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _nameController,
-            decoration: InputDecoration(labelText: 'Task Name'),
+            decoration: const InputDecoration(labelText: 'Task Name'),
           ),
           TextField(
             controller: _descriptionController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
           ),
         ],
       ),
@@ -37,7 +37,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () {
@@ -47,7 +47,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               'description': _descriptionController.text,
             });
           },
-          child: Text('Add'),
+          child: const Text('Add'),
         ),
       ],
     );

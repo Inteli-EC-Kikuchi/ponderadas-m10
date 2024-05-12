@@ -88,7 +88,7 @@ class _RootPageState extends State<RootPage> {
           
           final Map<String, String?>? result = await showDialog(
             context: context,
-            builder: (BuildContext context) => AddTaskDialog(),
+            builder: (BuildContext context) => const AddTaskDialog(),
           );
 
           if (result != null) {

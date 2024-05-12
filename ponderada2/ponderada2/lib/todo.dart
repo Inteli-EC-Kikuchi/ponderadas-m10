@@ -59,7 +59,7 @@ class Todo extends StatelessWidget {
                     final String description = result['description'] ?? '';
 
                     // Call _updateTask instead of _createTask
-                    _updateTask(todo.id, name, description).then((_) => {
+                    await _updateTask(todo.id, name, description).then((_) => {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const RootPage()),
@@ -73,9 +73,12 @@ class Todo extends StatelessWidget {
               const SizedBox(width: 8),
               FloatingActionButton(
                 onPressed: () async {
-                  debugPrint("Deleting Task...");
-                  await _deleteTask(todo.id);
-                  debugPrint("Task deleted successfully!");
+                  await _deleteTask(todo.id).then((_) => {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RootPage()),
+                      ),
+                    });
                 },
                 mini: true,
                 child: const Icon(Icons.delete),
