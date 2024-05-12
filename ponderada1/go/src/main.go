@@ -65,8 +65,11 @@ func main(){
 		
 		r.Get("/", routes.RenderTasks)
 		r.Post("/", routes.CreateTask)
-		r.Put("/", routes.UpdateTask)
-		r.Delete("/", routes.DeleteTask)
+
+		r.Route("/{taskID}", func(r chi.Router) {
+			r.Put("/", routes.UpdateTask)
+			r.Delete("/", routes.DeleteTask)
+		})
 	})
 
 	
