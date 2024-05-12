@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AddTaskDialog extends StatefulWidget {
+  
+  final String? initialName;
+  final String? initialDescription;
+
+  const AddTaskDialog({super.key, this.initialName, this.initialDescription});
+  
   @override
   _AddTaskDialogState createState() => _AddTaskDialogState();
 }
