@@ -1,6 +1,7 @@
 ---
 title: Ponderada 2
 description: Desenvolvimento Aplicativo Mobile
+order: 2
 ---
 
 # Ponderada 2
@@ -27,7 +28,9 @@ import { FileTree } from '@astrojs/starlight/components';
     - build
     - ios
     - lib
+        - login.dart
         - main.dart
+        - task_dialog.dart
         - todo.dart
     - linux
     - macos
@@ -55,7 +58,13 @@ import { Steps } from '@astrojs/starlight/components';
     git clone https://github.com/Inteli-EC-Kikuchi/ponderadas-m10.git
     ```
 
-2. Entre na pasta do projeto:
+2. Lance o docker compose da API desenvolvida na atividade passada:
+
+    ```bash
+    cd ponderadas-m10/ponderada1/go
+    docker-compose up
+    ```
+3. Entre na pasta do projeto:
 
     ```bash
     cd ponderadas-m10/ponderada2/ponderada2
@@ -75,15 +84,13 @@ import { Steps } from '@astrojs/starlight/components';
 
 </Steps>
 
-## Telas
+## Vídeo de demonstração
 
-<Aside type="caution" title="Watch out!">
-    As telas ainda estão em desenvolvimento.
-    Todas as informações estão mockadas. A integração com a API acontecerá em breve! 
-</Aside>
-
-### Tela de Login
-<center>![Tela de Login](../../../assets/login.png)</center>
-
-### Tela de Tarefas
-<center>![Tela de Tarefas](../../../assets/todo.png)</center>
+<iframe id="ytplayer" type="text/html" width="1280" height="720"
+  src="http://www.youtube.com/embed/mm3widBKcgo?autoplay=1"
+allowfullscreen="allowfullscreen"
+mozallowfullscreen="mozallowfullscreen" 
+msallowfullscreen="msallowfullscreen" 
+oallowfullscreen="oallowfullscreen" 
+webkitallowfullscreen="webkitallowfullscreen"
+frameborder="0"/>
