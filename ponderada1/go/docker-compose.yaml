@@ -13,7 +13,7 @@ services:
     networks:
       - my-network
 
-  server:
+  server1:
     image: hallzero/go-server
     env_file: .env
     ports:
@@ -22,6 +22,23 @@ services:
       - database
     networks:
       - my-network
+
+  server2:
+    image: hallzero/go-server
+    env_file: .env
+    ports:
+      - "3334:3333"
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+  gateway:
+    build: ./etc/nginx
+    networks:
+      - my-network
+    ports:
+      - "8000:80"
 
 networks:
   my-network:
