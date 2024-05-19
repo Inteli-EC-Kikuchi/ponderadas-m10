@@ -1,0 +1,123 @@
+---
+title: Ponderada 3 - Checkpoint
+description: Construção de Aplicativo Híbrido com Flutter
+order: 1
+---
+
+# Ponderada 3
+
+Construção de Aplicativo Híbrido com Flutter
+
+## Features
+- Telas de Login e captura de imagem (câmera) utilizando flutter e dart.
+- Integração com API para autenticação.
+- Utilização de logger na API, Aplicativo e Nginx.
+
+
+## Arquitetura
+
+
+import { Aside } from '@astrojs/starlight/components';
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- ponderada3
+    - app
+        - analysis_options.yaml
+        - android/
+        - app.iml
+        - build/
+        - lib
+            - controller
+                - authentication_controller.dart
+                - camera_controller.dart
+            - main.dart
+            - views
+                - camera_view.dart
+                - login.dart
+                - register_dialog.dart
+        - pubspec.lock
+        - pubspec.yaml
+        - README.md
+        - test/
+    - backend
+        - docker-compose.yml
+        - Dockerfile
+        - etc
+            - nginx
+                - Dockerfile
+                - nginx.conf
+        - requirements.txt
+        - src
+            - database
+                - database.py
+                - models.py
+            - main.py
+            - routes
+                - users.py
+
+</FileTree>
+
+## Execução
+
+Para executar o projeto, siga os seguintes passos:
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Clone o repositório:
+
+    ```bash
+    git clone https://github.com/Inteli-EC-Kikuchi/ponderadas-m10.git
+    ```
+
+2. Entre na pasta do projeto:
+
+    ```bash
+    cd ponderadas-m10/ponderada3/backend
+    ```
+
+3. Crie um arquivo .env em backend/src. Um exemplo de arquivo .env é o seguinte:
+
+    ```bash
+    SECRET_KEY=TESTING
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=yourpassword
+    POSTGRES_DB=postgres
+    ```
+
+4. Execute o comando:
+
+    ```bash
+    docker-compose up
+    ```
+
+5. Entre na pasta do projeto:
+
+    ```bash
+    cd ponderadas-m10/ponderada3/app
+    ```
+
+6. Lançar o emulador ou conectar o dispositivo físico.
+
+    ```bash
+    flutter emulators --launch <device_name>
+    ```
+
+7. Execute o comando:
+
+    ```bash
+    flutter run
+    ```
+
+</Steps>
+
+:::caution
+
+Para executar o projeto, é necessário ter o Docker e o Flutter instalados.
+Além disso, os endereços do backend estão levando em consideração o IP da máquina local quando esta atividade foi construída. Caso esteja utilizando um emulador, é necessário alterar o endereço.
+
+:::

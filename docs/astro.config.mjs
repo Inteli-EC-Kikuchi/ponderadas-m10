@@ -19,6 +19,10 @@ export default defineConfig({
 				{
 					label: 'Ponderada 2',
 					autogenerate: { directory: 'ponderada2' },
+				},
+				{
+					label: 'Ponderada 3',
+					autogenerate: { directory: 'ponderada3' },
 				}
 			],
 		}),
