@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres
+    restart: on-failure
+    env_file:
+      - ./src/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  python-app:
+    build: .
+    env_file: ./src/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+  nginx:
+    build: ./etc/nginx
+    ports:
+      - "8000:80"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  data:
