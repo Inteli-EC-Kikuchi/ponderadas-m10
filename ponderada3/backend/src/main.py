@@ -3,6 +3,7 @@ import logging
 from fastapi import FastAPI, Request
 from database.database import Base, engine
 import routes.users as user_routes
+import routes.image_processor as image_processor_routes
 
 Base.metadata.create_all(bind=engine)
 
@@ -19,6 +20,7 @@ async def log_requests(request: Request, call_next):
     return response
 
 app.include_router(user_routes.router, prefix="/users", tags=["users"])
+app.include_router(image_processor_routes.router, prefix="/image-processor", tags=["image-processor"])
 
 @app.get("/")
 def read_root():
