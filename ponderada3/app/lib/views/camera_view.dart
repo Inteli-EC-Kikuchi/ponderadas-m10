@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import '../controller/camera_controller.dart';
+import '../controller/notification_controller.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class CameraView extends StatefulWidget {
   final CameraDescription camera;
@@ -17,6 +19,14 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   void initState() {
+
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod:         NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod:    NotificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:  NotificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:  NotificationController.onDismissActionReceivedMethod
+    );
+
     super.initState();
     _cameraControllerHandler.initializeCamera(widget.camera);
   }
@@ -43,6 +53,17 @@ class _CameraViewState extends State<CameraView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+
+          AwesomeNotifications().createNotification(
+                    content: NotificationContent(
+                        id: 10,
+                        channelKey: 'basic_channel',
+                        title: 'Hello Awesome Notifications!',
+                        body: 'Sua imagem foi enviada e está sendo processada! ${DateTime.now()}',
+                        notificationLayout: NotificationLayout.Default
+                    )
+                );
+
           final imagePath = await _cameraControllerHandler.takePicture();
           if (imagePath != null) {
             if (!context.mounted) return;
