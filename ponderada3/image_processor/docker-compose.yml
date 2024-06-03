@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  image-processor:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+
+  nginx:
+    build: ./etc/nginx
+    ports:
+      - "8000:80"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  data:
