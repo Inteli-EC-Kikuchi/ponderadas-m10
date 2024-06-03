@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import '../controller/camera_controller.dart';
 import '../controller/notification_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -54,24 +56,36 @@ class _CameraViewState extends State<CameraView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
 
-          AwesomeNotifications().createNotification(
-                    content: NotificationContent(
-                        id: 10,
-                        channelKey: 'basic_channel',
-                        title: 'Hello Awesome Notifications!',
-                        body: 'Sua imagem foi enviada e está sendo processada! ${DateTime.now()}',
-                        notificationLayout: NotificationLayout.Default
-                    )
-                );
-
           final imagePath = await _cameraControllerHandler.takePicture();
+          
           if (imagePath != null) {
-            if (!context.mounted) return;
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(imagePath: imagePath),
+            AwesomeNotifications().createNotification(
+              content: NotificationContent(
+                id: 10,
+                channelKey: 'basic_channel',
+                title: 'Image Sent!',
+                body: 'Your image is being processed. ${DateTime.now()}',
+                notificationLayout: NotificationLayout.Default,
               ),
             );
+
+            final base64Image = await _cameraControllerHandler.sendImage(imagePath);
+            if (base64Image != null) {
+              final processedImagePath = path.join(
+                (await getTemporaryDirectory()).path,
+                'processed_image.png',
+              );
+              await _cameraControllerHandler.decodeBase64Image(base64Image, processedImagePath);
+
+              if (!context.mounted) return;
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DisplayPictureScreen(
+                    imagePath: processedImagePath
+                  ),
+                ),
+              );
+            }
           }
         },
         child: const Icon(Icons.camera_alt),

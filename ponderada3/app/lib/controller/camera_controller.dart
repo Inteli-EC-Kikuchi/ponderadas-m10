@@ -42,8 +42,8 @@ class CameraControllerHandler {
     }
   }
 
-  Future<http.Response> sendImage(String imagePath) async {
-    var uri = Uri.parse('http://localhost:3000/image-processor/process-image');
+  Future<String?> sendImage(String imagePath) async {
+    var uri = Uri.parse('http://10.128.0.1:3000/image-processor/process-image');
 
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath(
@@ -55,7 +55,22 @@ class CameraControllerHandler {
     request.files.add(file);
 
     var response = await request.send();
-    return http.Response.fromStream(response);
+
+    if (response.statusCode == 200) {
+      var responseData = await http.Response.fromStream(response);
+      var decodedData = jsonDecode(responseData.body);
+      return decodedData['image'] as String;
+    } else {
+      print('Error uploading image: ${response.statusCode}');
+      return null;
+    }
+  }
+
+  Future<File> decodeBase64Image(String base64Image, String outputPath) async {
+    var bytes = base64Decode(base64Image);
+    var file = File(outputPath);
+    await file.writeAsBytes(bytes);
+    return file;
   }
 
   
