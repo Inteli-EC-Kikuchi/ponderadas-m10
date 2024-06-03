@@ -4,6 +4,7 @@ import logging
 from PIL import Image
 from rembg import remove
 import io
+import base64
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -27,7 +28,14 @@ async def process_image(file: UploadFile = File(...)):
 
         logger.info(f"Received image with size: {image.size}")
 
-        return JSONResponse(content={"image": output.decode("utf-8")})
+        buffered = io.BytesIO()
+        
+        output.save(buffered, "PNG")
+
+        base64_image = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+        return JSONResponse(content={"image": base64_image})
+        
     except Exception as e:
         logger.error(f"Error processing image: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")
