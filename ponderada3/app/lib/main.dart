@@ -46,7 +46,7 @@ Future<void> main() async {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: CameraView(camera: firstCamera),
+      home: Login(),
       routes: {
         '/camera': (BuildContext context) => CameraView(camera: firstCamera),
       },

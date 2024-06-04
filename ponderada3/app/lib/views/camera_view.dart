@@ -85,6 +85,17 @@ class _CameraViewState extends State<CameraView> {
                   ),
                 ),
               );
+
+              AwesomeNotifications().createNotification(
+              content: NotificationContent(
+                id: 11,
+                channelKey: 'basic_channel',
+                title: 'Imagem processada!',
+                body: 'A imagem foi processada! ${DateTime.now()}',
+                notificationLayout: NotificationLayout.Default,
+              ),
+            );
+
             }
           }
         },
