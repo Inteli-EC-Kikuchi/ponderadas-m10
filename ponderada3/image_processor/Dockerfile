@@ -1,4 +1,4 @@
-FROM python:3.11-alpine3.17
+FROM python:3.10.14-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,10 +13,10 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Expose port 8000 to the outside world
-EXPOSE 8000
+EXPOSE 3001
 
 # Set the working directory to /app/src
 WORKDIR /app/src
 
 # Command to run the Python application using uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3001"]

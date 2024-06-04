@@ -4,14 +4,14 @@ services:
   image-processor:
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3001"
     networks:
       - my-network
 
   nginx:
     build: ./etc/nginx
     ports:
-      - "8000:80"
+      - "8001:80"
     networks:
       - my-network
 

@@ -43,7 +43,7 @@ class CameraControllerHandler {
   }
 
   Future<String?> sendImage(String imagePath) async {
-    var uri = Uri.parse('http://10.128.0.1:3000/image-processor/process-image');
+    var uri = Uri.parse('http://10.128.0.1:8001/api/image-processor/process-image');
 
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath(
